@@ -14,7 +14,7 @@ const addUser = tryCatch(async (req, res) => {
             username,
             firstname,
             lastname,
-            password: encryptedPassword,
+            password: encryptedPassword, 
             email,
             mobile,
             roles
