@@ -72,10 +72,8 @@ function Sidebar(props) {
     }
     function GotoChangeMenu(val) {
         if (val === "UI Components") {
-            props.history.push("ui-alerts");
             setMenuData([...menu2.menu2]);
         } else {
-            props.history.push("hr-dashboard");
             setMenuData([...menu.menu]);
         }
     }

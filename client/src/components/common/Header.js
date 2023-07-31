@@ -9,12 +9,21 @@ import Avatar6 from "../../assets/images/xs/avatar6.jpg";
 import Avatar7 from "../../assets/images/xs/avatar7.jpg";
 import Avatar8 from "../../assets/images/xs/avatar8.jpg";
 import ProfileImg from "../../assets/images/profile_av.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddNewUserModal from "./AddNewUserModal";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../Redux/Slices/authSlices";
 
 function Header() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state?.auth?.user)
+    console.log(user);
     const [isAddUserModa, setIsAddUserModa] = useState(false);
-
+    async function handleLogout() {
+        await dispatch(logout())
+        navigate(`${process.env.PUBLIC_URL}/sign-in`)
+    }
     return (
         <div className="header">
             <nav className="navbar py-4">
@@ -113,7 +122,7 @@ function Header() {
                         </Dropdown>
                         <Dropdown className="dropdown user-profile ms-2 ms-sm-3 d-flex align-items-center">
                             <div className="u-info me-2">
-                                <p className="mb-0 text-end line-height-sm "><span className="font-weight-bold">Dylan Hunter</span></p>
+                                <p className="mb-0 text-end line-height-sm "><span className="font-weight-bold">{user?.firstname + " " + user?.lastname}</span></p>
                                 <small>Admin Profile</small>
                             </div>
                             <Dropdown.Toggle as="a" className="nav-link dropdown-toggle pulse p-0">
@@ -125,8 +134,8 @@ function Header() {
                                         <div className="d-flex py-1">
                                             <img className="avatar rounded-circle" src={ProfileImg} alt="profile" />
                                             <div className="flex-fill ms-3">
-                                                <p className="mb-0"><span className="font-weight-bold">Dylan Hunter</span></p>
-                                                <small className="">Dylan.hunter@gmail.com</small>
+                                                <p className="mb-0"><span className="font-weight-bold">{user?.firstname + " " + user?.lastname}</span></p>
+                                                <small className="">{user?.email}</small>
                                             </div>
                                         </div>
 
@@ -135,7 +144,7 @@ function Header() {
                                     <div className="list-group m-2 ">
                                         <Link to="tasks" className="list-group-item list-group-item-action border-0 "><i className="icofont-tasks fs-5 me-3"></i>My Task</Link>
                                         <Link to="members" className="list-group-item list-group-item-action border-0 "><i className="icofont-ui-user-group fs-6 me-3"></i>members</Link>
-                                        <Link to="sign-in" className="list-group-item list-group-item-action border-0 "><i className="icofont-logout fs-6 me-3"></i>Signout</Link>
+                                        <button onClick={handleLogout} to="sign-in" className="list-group-item list-group-item-action border-0 "><i className="icofont-logout fs-6 me-3"></i>Signout</button>
                                         <div><hr className="dropdown-divider border-dark" /></div>
                                         <Link to="sign-up" className="list-group-item list-group-item-action border-0 "><i className="icofont-contact-add fs-5 me-3"></i>Add personal account</Link>
                                     </div>

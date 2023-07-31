@@ -1,17 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import Store from '../src/Redux/Store'
+import { Provider } from 'react-redux'
 import "./assets/scss/main.scss"
+import "react-notifications-component/dist/theme.css";
+import { ReactNotifications } from 'react-notifications-component'
 
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ReactNotifications />
+      <Provider store={Store} >
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+
 );
 
 // If you want to start measuring performance in your app, pass a function
