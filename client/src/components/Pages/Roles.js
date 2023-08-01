@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import { Button, ButtonBase } from '@mui/material';
 import { showNotification } from '../../utils/notifications';
 import { Axios } from '../../utils/Axios';
+import { setRoles } from '../../utils/api';
 
 
 const Roles = () => {
@@ -26,13 +27,7 @@ const Roles = () => {
     }
     function handleSubmit(e) {
         e.preventDefault()
-        Axios.post("/admin/addRoles", role)
-            .then((res) => showNotification(res.data.message))
-            .catch((error) => {
-                const errorMessage = error?.response?.data?.message || error.message
-                showNotification(errorMessage)
-                console.log(errorMessage)
-            })
+        setRoles(role)
     }
     return (
         <div>

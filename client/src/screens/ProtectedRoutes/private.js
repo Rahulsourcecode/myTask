@@ -1,10 +1,19 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom';
+import { getRoles } from '../../utils/api';
 
 const PrivateRoute = () => {
-    const state = useSelector((state)=>state?.auth?.user)
-    return state.type === "admin"|| state.roles.includes() ? <Outlet /> : <Navigate to='/' replace />;
+    const [roles,setRoles] = useState()
+    useEffect(() => {
+        async function getRoleData() {
+            const res = await getRoles()
+            setRoles(res.data)
+            console.log(res);
+        }
+        getRoleData()
+    }, [])
+    const state =JSON.parse(localStorage.getItem('store'))
+    return state?.auth?.user?.roles.includes("admin")? <Outlet /> : <Navigate to={`${process.env.PUBLIC_URL}/sign-in`} replace />;
 }
 
 export default PrivateRoute

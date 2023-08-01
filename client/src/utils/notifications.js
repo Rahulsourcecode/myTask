@@ -14,9 +14,9 @@ export const notification = {
   animationOut: ["animate_animated animate_flipInX"],
 };
 
-export const showNotification = (message) => {
+export const showNotification = (message,title='Error',type='danger') => {
   Store.addNotification({
-    ...notification, message
+    ...notification, message , title , type
   })
 }
 

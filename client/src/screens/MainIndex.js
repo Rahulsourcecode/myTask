@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Header from "../components/common/Header";
 import Expenses from "./Accounts/Expenses";
 import Invoices from "./Accounts/Invoices";
@@ -54,6 +54,9 @@ import Documentation from "./Documentation/Documentation";
 import Changelog from "./Changelog/Changelog";
 import Help from "./Dashboard/Help";
 import Roles from "../components/Pages/Roles";
+import AddUser from "../components/Pages/Adduser";
+import PrivateRoute from "./ProtectedRoutes/private";
+import Page404 from "../components/Auth/Page404";
 
 function MainIndex(props) {
 
@@ -63,59 +66,63 @@ function MainIndex(props) {
             {activekey !== "/chat-app" ? activekey === "/documentation" ? <PageHeader1 /> : <Header /> : ""}
             <div className="body d-flex py-lg-3 py-md-2">
                 <Routes>
-                    <Route exact path={`${process.env.PUBLIC_URL}/`} element={<HrDashboard />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/hr-dashboard`} element={<HrDashboard />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/project-dashboard`} element={<ProjectDashboard />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/projects`} element={<Projects />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/tasks`} element={<Tasks />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/timesheet`} element={<Timesheet />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/leaders`} element={<Leaders></Leaders>} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/tickets-view`} element={<TicketsView />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/tickets-detail`} element={<TicketsDetail />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/clients`} element={<Clients />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/client-profile`} element={<ClientProfile />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/members`} element={<Members />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/members-profile`} element={<EmployeeProfile />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/holidays`} element={<Holidays />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/attendance-employees`} element={<AttendanceEmployees />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/attendance`} element={<Attendance />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/leave-request`} element={<LeaveRequest />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/department`} element={<Departments />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/invoices`} element={<Invoices />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/payments`} element={<Payments />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/expenses`} element={<Expenses />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/employee-salary`} element={<Salaryslip />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/calander`} element={<Calendar />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/chat-app`} element={<ChatApp />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/apex-charts`} element={<ApexCharts />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/forms-example`} element={<FormsExample />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/table-example`} element={<TablesExample />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/reviews-page`} element={<ReviewsPage />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/icons`} element={<Icons />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/widgets`} element={<Widgets />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-alerts`} element={<Alerts />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-badge`} element={<Badges />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-breadcrumb`} element={<Breadcrumb />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-buttons`} element={<Buttons />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-card`} element={<Cards />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-carousel`} element={<Carousel />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-collapse`} element={<Collapse />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-dropdowns`} element={<Dropdowns />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-listgroup`} element={<ListGroup />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-modalui`} element={<ModalUI />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-navsui`} element={<NavsUI />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-navbarui`} element={<NavbarUI />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-paginationui`} element={<PaginationUI />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-popoversui`} element={<PopoversUI />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-progressui`} element={<ProgressUI />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-Scrollspyui`} element={<Scrollspy />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-spinnersui`} element={<SpinnersUI />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/ui-toastsui`} element={<ToastsUI />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/stater-page`} element={<StaterPage />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/role-management`} element={<Roles />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/documentation`} element={<Documentation />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/changelog`} element={<Changelog />} />
-                    <Route exact path={`${process.env.PUBLIC_URL}/help`} element={<Help />} />
+                    <Route element={<PrivateRoute />}>
+                        <Route exact path={`${process.env.PUBLIC_URL}/`} element={<HrDashboard />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/hr-dashboard`} element={<HrDashboard />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/project-dashboard`} element={<ProjectDashboard />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/projects`} element={<Projects />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/tasks`} element={<Tasks />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/timesheet`} element={<Timesheet />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/leaders`} element={<Leaders></Leaders>} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/tickets-view`} element={<TicketsView />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/tickets-detail`} element={<TicketsDetail />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/clients`} element={<Clients />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/client-profile`} element={<ClientProfile />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/members`} element={<Members />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/members-profile`} element={<EmployeeProfile />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/holidays`} element={<Holidays />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/attendance-employees`} element={<AttendanceEmployees />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/attendance`} element={<Attendance />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/leave-request`} element={<LeaveRequest />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/department`} element={<Departments />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/invoices`} element={<Invoices />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/payments`} element={<Payments />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/expenses`} element={<Expenses />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/employee-salary`} element={<Salaryslip />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/calander`} element={<Calendar />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/chat-app`} element={<ChatApp />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/apex-charts`} element={<ApexCharts />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/forms-example`} element={<FormsExample />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/table-example`} element={<TablesExample />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/reviews-page`} element={<ReviewsPage />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/icons`} element={<Icons />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/widgets`} element={<Widgets />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-alerts`} element={<Alerts />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-badge`} element={<Badges />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-breadcrumb`} element={<Breadcrumb />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-buttons`} element={<Buttons />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-card`} element={<Cards />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-carousel`} element={<Carousel />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-collapse`} element={<Collapse />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-dropdowns`} element={<Dropdowns />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-listgroup`} element={<ListGroup />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-modalui`} element={<ModalUI />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-navsui`} element={<NavsUI />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-navbarui`} element={<NavbarUI />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-paginationui`} element={<PaginationUI />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-popoversui`} element={<PopoversUI />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-progressui`} element={<ProgressUI />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-Scrollspyui`} element={<Scrollspy />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-spinnersui`} element={<SpinnersUI />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/ui-toastsui`} element={<ToastsUI />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/stater-page`} element={<StaterPage />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/role-management`} element={<Roles />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/user-management`} element={<AddUser />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/documentation`} element={<Documentation />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/changelog`} element={<Changelog />} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/help`} element={<Help />} />
+                    </Route>
+                    <Route path='*' element={<Navigate to={`${process.env.PUBLIC_URL}/page-404`} replace />} />
                 </Routes>
             </div>
         </div>

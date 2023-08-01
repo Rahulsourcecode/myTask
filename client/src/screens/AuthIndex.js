@@ -6,7 +6,6 @@ import PasswordReset from "../components/Auth/PasswordReset";
 import SignIn from "../components/Auth/SignIn";
 import Signup from "../components/Auth/Signup";
 import StepAuthentication from "../components/Auth/StepAuthentication";
-import { ToastContainer } from "react-toastify";
 
 
 function AuthIndex() {

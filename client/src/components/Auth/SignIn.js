@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleImg from "../../assets/images/google.svg";
-import  {Axios}  from "../../utils/Axios";
+import { Axios } from "../../utils/Axios";
 import { useDispatch } from "react-redux";
 import { setState } from "../../Redux/Slices/authSlices";
+import { login } from "../../utils/api";
 function SignIn() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -14,11 +15,11 @@ function SignIn() {
     function handleChange(e) {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
-    function handleSubmit(e) {
+   async function handleSubmit(e) {
         e.preventDefault()
-        Axios.post("/general/login", user)
-            .then((res) => dispatch(setState(res.data)))
-            .then(() => navigate(`${process.env.PUBLIC_URL}/hr-dashboard`))
+        const res =await login(user)
+        dispatch(setState(res.data))
+        navigate(`${process.env.PUBLIC_URL}/hr-dashboard`)
     }
     console.log(user)
     return (
@@ -67,7 +68,7 @@ function SignIn() {
                         <button onClick={handleSubmit} className="btn btn-lg btn-block btn-light lift text-uppercase" atl="signin">SIGN IN</button>
                     </div>
                     <div className="col-12 text-center mt-4">
-                        <span className="text-muted">Don't have an account yet? <Link to="sign-up" className="text-secondary">Sign up here</Link></span>
+                        <span className="text-muted">Don't have an account yet? <Link to={`${process.env.PUBLIC_URL}/sign-up`} className="text-secondary">Sign up here</Link></span>
                     </div>
                 </form>
             </div>
