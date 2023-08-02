@@ -39,7 +39,6 @@ function TaskNestable1 (props){
     var dropabl = gragable;
     var dropablOnly = dropable;
     var dropablComplete = Copmplete;
-    console.log("Drop",data.grag);
     dropabl = dropabl.filter(item => item.Data !== data.grag);
     dropablOnly = dropablOnly.filter(item => item.Data === data.grag);
     dropablComplete = dropablComplete.filter(item => item.Data === data.grag);
@@ -68,7 +67,6 @@ function TaskNestable1 (props){
     var Comp = Copmplete;
     var dropablOnly = dropable;
     var dropablComplete = gragable;
-    console.log("Complete",data.type);
     Comp = Comp.filter(item => item.Data !== data.fruit);
     dropablOnly = dropablOnly.filter(item => item.Data === data.grag);
     dropablComplete = dropablComplete.filter(item => item.Data === data.grag);

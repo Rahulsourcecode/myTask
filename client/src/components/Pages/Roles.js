@@ -9,26 +9,57 @@ import { Button, ButtonBase } from '@mui/material';
 import { showNotification } from '../../utils/notifications';
 import { Axios } from '../../utils/Axios';
 import { setRoles } from '../../utils/api';
-
+import data from '../Data/menu.json'
 
 const Roles = () => {
-    const options = ["Dashboard", "User management", "Projects", "Tickets", "Clients", "Employees", "Accounts", "Payroll", "App", "Other Pages", "Ui components"]
+
+    const options = data.menu.map(x => x.name)
+    const [permissions, setPermissions] = useState([])
     const [role, setRole] = useState({
         role: "",
         description: "",
         permissions: []
     });
+    const [errors, setErrors] = useState({
+        role: false,
+        description: false,
+        permissions: false,
+    });
     function handleChange(e) {
         setRole({ ...role, [e.target.name]: e.target.value })
-        console.log(role)
     }
+
     function handlePermissionsChange(event, value) {
-        setRole({ ...role, permissions: value });
+        setPermissions(value)
+        const access = value.map(item => data?.menu.filter(x => x.name === item).map(x => ({ [x.name]: x.routerLink }))).map(x => x[0])
+        setRole({ ...role, permissions: access })
     }
+
     function handleSubmit(e) {
-        e.preventDefault()
-        setRoles(role)
+        e.preventDefault();
+        const hasErrors =
+            !role.role.trim() || !role.description.trim() || permissions.length === 0;
+
+        setErrors({
+            role: !role.role.trim(),
+            description: !role.description.trim(),
+            permissions: permissions.length === 0,
+        });
+
+        if (!hasErrors) {
+            setRoles(role)
+                .then(() => {
+                    setRole({
+                        role: "",
+                        description: "",
+                        permissions: [],
+                    })
+                    setPermissions([]);
+                })
+
+        }
     }
+
     return (
         <div>
             <PageHeader headerTitle="Role mangement" />
@@ -41,15 +72,15 @@ const Roles = () => {
                             <div className="col-md-12">
                                 <div className="form-group">
                                     <label className="form-label">Role name:</label>
-                                    <input type="text" name='role' className="form-control parsley-error" value={role.role} onChange={handleChange} required />
-                                    {role.name === "" ? (<span className="text-danger">Please fill input filed</span>) : ("")}
+                                    <input type="text" name='role' className={`form-control ${errors.role ? "parsley-error" : ""}`} value={role?.role} onChange={handleChange} />
+                                    {errors.role && (<span className="text-danger">Please fill input field</span>)}
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="form-group">
                                     <label className="form-label">Role description:</label>
-                                    <textarea name="description" className="form-control parsley-error" rows="5" cols="30" value={role.description} onChange={handleChange} required data-parsley-id="33" ></textarea>
-                                    {role.description === "" ? (<span className="text-danger">Please fill input filed</span>) : ("")}
+                                    <textarea name="description" className={`form-control ${errors.description ? "parsley-error" : ""}`} rows="5" cols="30" value={role?.description} onChange={handleChange} data-parsley-id="33" ></textarea>
+                                    {errors.description && (<span className="text-danger">Please fill input field</span>)}
                                 </div>
                             </div>
                             <div className="col-md-12">
@@ -61,9 +92,8 @@ const Roles = () => {
                                         id="tags-filled"
                                         name="permissions"
                                         onChange={handlePermissionsChange} // Use the new handler function for permissions
-                                        value={role.permissions}
+                                        value={permissions}
                                         options={options}
-                                        defaultValue={[options[1]]}
                                         renderTags={(value, getTagProps) =>
                                             value.map((option, index) => (
                                                 <Chip variant="outlined" label={option} {...getTagProps({ index })} />
@@ -77,6 +107,7 @@ const Roles = () => {
                                             />
                                         )}
                                     />
+                                    {errors.permissions && (<span className="text-danger">Please select at least one option</span>)}
                                 </div>
                             </div>
                         </div>

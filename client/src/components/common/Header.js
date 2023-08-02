@@ -17,8 +17,7 @@ import { logout } from "../../Redux/Slices/authSlices";
 function Header() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector((state) => state?.auth?.user)
-    console.log(user);
+    const data = JSON.parse(localStorage.getItem('store'))
     const [isAddUserModa, setIsAddUserModa] = useState(false);
     async function handleLogout() {
         await dispatch(logout())
@@ -122,8 +121,8 @@ function Header() {
                         </Dropdown>
                         <Dropdown className="dropdown user-profile ms-2 ms-sm-3 d-flex align-items-center">
                             <div className="u-info me-2">
-                                <p className="mb-0 text-end line-height-sm "><span className="font-weight-bold">{user?.firstname + " " + user?.lastname}</span></p>
-                                <small>Admin Profile</small>
+                                <p className="mb-0 text-end line-height-sm "><span className="font-weight-bold">{data?.auth?.user?.firstname + " " + data?.auth?.user?.lastname}</span></p>
+                                <small>Profile</small>
                             </div>
                             <Dropdown.Toggle as="a" className="nav-link dropdown-toggle pulse p-0">
                                 <img className="avatar lg rounded-circle img-thumbnail" src={ProfileImg} alt="profile" />
@@ -134,8 +133,8 @@ function Header() {
                                         <div className="d-flex py-1">
                                             <img className="avatar rounded-circle" src={ProfileImg} alt="profile" />
                                             <div className="flex-fill ms-3">
-                                                <p className="mb-0"><span className="font-weight-bold">{user?.firstname + " " + user?.lastname}</span></p>
-                                                <small className="">{user?.email}</small>
+                                                <p className="mb-0"><span className="font-weight-bold">{data?.auth?.user?.firstname + " " + data?.auth?.user?.lastname}</span></p>
+                                                <small className="">{data?.auth?.user?.email}</small>
                                             </div>
                                         </div>
 

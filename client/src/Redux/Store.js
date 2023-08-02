@@ -7,7 +7,6 @@ function saveToLocalStorage(store) {
     const serializedStore = JSON.stringify(store);
     window.localStorage.setItem("store", serializedStore);
   } catch (e) {
-    console.log(e);
   }
 }
 

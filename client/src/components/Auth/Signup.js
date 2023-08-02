@@ -33,7 +33,6 @@ function Signup() {
     validationSchema,
     onSubmit: (values) => {
       // Handle form submission here
-      console.log('Form submitted:', values);
     },
   });
 

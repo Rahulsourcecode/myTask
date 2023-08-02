@@ -2,7 +2,7 @@
   "menu": [
     {
       "name": "Dashboard",
-      "routerLink": [""],
+      "routerLink": ["hr-dashboard", "project-dashboard"],
       "identifier": "dashboard",
       "iconClass": "icofont-home fs-5",
       "breadcrumbMessage": "Welcome to Analytics Dashboard.",
@@ -32,8 +32,8 @@
       ]
     },
     {
-      "name": "User management ",
-      "routerLink": [""],
+      "name": "User management",
+      "routerLink": ["role-management", "user-management"],
       "identifier": "usermanagement",
       "iconClass": "icofont-user-male",
       "breadcrumbMessage": "Welcome to Analytics Dashboard.",
@@ -64,7 +64,7 @@
     },
     {
       "name": "Projects",
-      "routerLink": [""],
+      "routerLink": ["projects", "tasks", "timesheet", "leaders"],
       "identifier": "Projects",
       "iconClass": "icofont-briefcase",
       "breadcrumbMessage": "",
@@ -116,7 +116,7 @@
 
     {
       "name": "Tickets",
-      "routerLink": [""],
+      "routerLink": ["tickets-view", "tickets-detail"],
       "identifier": "Tickets",
       "iconClass": "icofont-ticket",
       "breadcrumbMessage": "",
@@ -147,7 +147,7 @@
     },
     {
       "name": "Our Clients",
-      "routerLink": [""],
+      "routerLink": ["clients", "client-profile"],
       "identifier": "Our Clients",
       "iconClass": "icofont-user-male",
       "breadcrumbMessage": "",
@@ -178,7 +178,15 @@
     },
     {
       "name": "Employees",
-      "routerLink": [""],
+      "routerLink": [
+        "members",
+        "members-profile",
+        "holidays",
+        "attendance-employees",
+        "attendance",
+        "leave-request",
+        "department"
+      ],
       "identifier": "Employees",
       "iconClass": "icofont-users-alt-5",
       "breadcrumbMessage": "",
@@ -259,7 +267,7 @@
     },
     {
       "name": "Accounts",
-      "routerLink": [""],
+      "routerLink": ["invoices", "payments", "expenses"],
       "identifier": "Accounts",
       "iconClass": "icofont-ui-calculator",
       "breadcrumbMessage": "",
@@ -300,7 +308,7 @@
     },
     {
       "name": "Payroll",
-      "routerLink": [""],
+      "routerLink": ["employee-salary"],
       "identifier": "Payroll",
       "iconClass": "icofont-users-alt-5",
       "breadcrumbMessage": "",
@@ -321,7 +329,7 @@
     },
     {
       "name": "App",
-      "routerLink": [""],
+      "routerLink": ["calander", "chat-app"],
       "identifier": "App",
       "iconClass": "icofont-contrast",
       "breadcrumbMessage": "",
@@ -352,7 +360,14 @@
     },
     {
       "name": "Other Pages",
-      "routerLink": [],
+      "routerLink": [
+        "apex-charts",
+        "forms-example",
+        "table-example",
+        "reviews-page",
+        "icons",
+        "widgets"
+      ],
       "identifier": "Other Pages",
       "iconClass": "icofont-code-alt",
       "breadcrumbMessage": "",

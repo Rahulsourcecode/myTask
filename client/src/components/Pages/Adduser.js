@@ -5,25 +5,11 @@ import PageHeader from '../common/PageHeader';
 import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { Button, ButtonBase } from '@mui/material';
 import { showNotification } from '../../utils/notifications';
-import { Axios } from '../../utils/Axios';
-import { addUser, getRoles, setRoles } from '../../utils/api';
+import { addUser, getRoles } from '../../utils/api';
 
-import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
-// const AddUserSchema = Yup.object().shape({
-//     firstname: Yup.string().required('Required'),
-//     lastname: Yup.string().required('Required'),
-//     email: Yup.string().email('Invalid email').required('Required'),
-//     password: Yup.string().required('Required'),
-//     confirmpassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Required'),
-//     username: Yup.string().required('Required'),
-//     number: Yup.number().required('Required'),
-//     role: Yup.array(),
-// });
-
 
 const AddUser = () => {
 
@@ -31,9 +17,8 @@ const AddUser = () => {
     useEffect(() => {
         async function getRoleData() {
             const res = await getRoles()
-            const data = res.data.map(x=>x.role)
+            const data = res.data.map(x => x.role)
             setOptions(data)
-            console.log(res);
         }
         getRoleData()
     }, [])
@@ -101,12 +86,22 @@ const AddUser = () => {
         }
     });
     function handlePermissionsChange(event, value) {
-        setError(false)
+        value.length ? setError(false) : setError(true)
         setUser({ ...user, roles: value });
     }
     function handleSubmit(values) {
         if (user?.roles?.length) {
             addUser({ ...user, ...values })
+            formik.resetForm();
+            setUser({
+                firstname: "",
+                lastname: "",
+                email: "",
+                password: "",
+                username: "",
+                mobile: "",
+                roles: [],
+            });
         } else {
             setError(true)
         }
@@ -123,7 +118,7 @@ const AddUser = () => {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="form-label">firstname:</label>
-                                    <input type="text" name='firstname' className="form-control parsley-error" value={formik.values.firstname} onChange={formik.handleChange} required />
+                                    <input type="text" name='firstname' className="form-control parsley-error" value={formik.values.firstname} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                     {formik.touched.firstname && formik.errors.firstname ? (
                                         <div className="text-danger">{formik.errors.firstname}</div>
                                     ) : null}
@@ -132,7 +127,7 @@ const AddUser = () => {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="form-label">lastname:</label>
-                                    <input type="text" name='lastname' className="form-control parsley-error" value={formik.values.lastname} onChange={formik.handleChange} required />
+                                    <input type="text" name='lastname' className="form-control parsley-error" value={formik.values.lastname} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                     {formik.touched.lastname && formik.errors.lastname ? (
                                         <div className="text-danger">{formik.errors.lastname}</div>
                                     ) : null}
@@ -141,7 +136,7 @@ const AddUser = () => {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="form-label">email:</label>
-                                    <input type="text" name='email' className="form-control parsley-error" value={formik.values.email} onChange={formik.handleChange} required />
+                                    <input type="text" name='email' className="form-control parsley-error" value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                     {formik.touched.email && formik.errors.email ? (
                                         <div className="text-danger">{formik.errors.email}</div>
                                     ) : null}
@@ -150,7 +145,7 @@ const AddUser = () => {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="form-label">username:</label>
-                                    <input type="text" name='username' className="form-control parsley-error" value={formik.values.username} onChange={formik.handleChange} required />
+                                    <input type="text" name='username' className="form-control parsley-error" value={formik.values.username} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                     {formik.touched.username && formik.errors.username ? (
                                         <div className="text-danger">{formik.errors.username}</div>
                                     ) : null}
@@ -159,7 +154,7 @@ const AddUser = () => {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="form-label">password:</label>
-                                    <input type="text" name='password' className="form-control parsley-error" value={formik.values.password} onChange={formik.handleChange} required />
+                                    <input type="password" name='password' className="form-control parsley-error" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                     {formik.touched.password && formik.errors.password ? (
                                         <div className="text-danger">{formik.errors.password}</div>
                                     ) : null}
@@ -168,7 +163,7 @@ const AddUser = () => {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="form-label">confirmpassword:</label>
-                                    <input type="text" name='confirmpassword' className="form-control parsley-error" value={formik.values.confirmpassword} onChange={formik.handleChange} required />
+                                    <input type="password" name='confirmpassword' className="form-control parsley-error" value={formik.values.confirmpassword} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                     {formik.touched.confirmpassword && formik.errors.confirmpassword ? (
                                         <div className="text-danger">{formik.errors.confirmpassword}</div>
                                     ) : null}
@@ -177,7 +172,7 @@ const AddUser = () => {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="form-label">mobile:</label>
-                                    <input type="text" name='mobile' className="form-control parsley-error" value={formik.values.mobile} onChange={formik.handleChange} required />
+                                    <input type="text" name='mobile' className="form-control parsley-error" value={formik.values.mobile} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                     {formik.touched.mobile && formik.errors.mobile ? (
                                         <div className="text-danger">{formik.errors.mobile}</div>
                                     ) : null}

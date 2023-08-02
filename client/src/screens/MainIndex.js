@@ -56,7 +56,6 @@ import Help from "./Dashboard/Help";
 import Roles from "../components/Pages/Roles";
 import AddUser from "../components/Pages/Adduser";
 import PrivateRoute from "./ProtectedRoutes/private";
-import Page404 from "../components/Auth/Page404";
 
 function MainIndex(props) {
 
@@ -66,7 +65,7 @@ function MainIndex(props) {
             {activekey !== "/chat-app" ? activekey === "/documentation" ? <PageHeader1 /> : <Header /> : ""}
             <div className="body d-flex py-lg-3 py-md-2">
                 <Routes>
-                    <Route element={<PrivateRoute />}>
+                    <Route element={<PrivateRoute url={activekey} />}>
                         <Route exact path={`${process.env.PUBLIC_URL}/`} element={<HrDashboard />} />
                         <Route exact path={`${process.env.PUBLIC_URL}/hr-dashboard`} element={<HrDashboard />} />
                         <Route exact path={`${process.env.PUBLIC_URL}/project-dashboard`} element={<ProjectDashboard />} />

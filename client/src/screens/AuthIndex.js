@@ -18,6 +18,7 @@ function AuthIndex() {
                     <div className="row g-0">
                         <LeftSide />
                         <Routes>
+                            <Route exact path={`/`} element={<SignIn />} />
                             <Route exact path={`${process.env.PUBLIC_URL}/sign-in`} element={<SignIn />} />
                             <Route exact path={`${process.env.PUBLIC_URL}/sign-up`} element={<Signup />} />
                             <Route exact path={`${process.env.PUBLIC_URL}/password-reset`} element={<PasswordReset />} />

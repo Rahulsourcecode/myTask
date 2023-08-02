@@ -1,17 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import menu  from "../Data/menu.json";
+import menu from "../Data/menu.json";
 import menu2 from "../Data/menu2.json";
 import { useState } from "react";
 import { useEffect } from "react";
-console.log("menu",menu);
 function Sidebar(props) {
-
+    const permissions = JSON.parse(localStorage.getItem('store'))?.auth?.access
     const [isSidebarMini, setIsSidebarMini] = useState(false);
-    const [menuData, setMenuData] = useState([...menu?.menu]);
+    const data = permissions ? menu?.menu?.filter(x=>permissions.includes(x.name)) : []
+    const [menuData, setMenuData] = useState(data);
+
     const [darkLightMode, setDarkLightMode] = useState("light");
     const [updateRtl, setUpdateRtl] = useState(false);
-    
+
     useEffect(() => {
         window.document.children[0].setAttribute("data-theme", "light");
 

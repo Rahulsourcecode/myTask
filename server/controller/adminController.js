@@ -7,7 +7,6 @@ const saltArgument = 10;
 
 const addRole = tryCatch(async (req, res) => {
     const { role, description, permissions } = req.body
-    console.log(req.body);
     const roleexist = await roleModel.findOne({ role: role })
     if (roleexist) {
         return res.status(400).json({ message: "role already exists" })
@@ -17,9 +16,7 @@ const addRole = tryCatch(async (req, res) => {
         description,
         permissions
     })
-    console.log(values);
     const savedValues = await values.save()
-    console.log(savedValues);
     if (!savedValues) {
         // throw new Error("unable to add role")
         return res.status(404).json({ message: "unable to add role" })
@@ -28,7 +25,6 @@ const addRole = tryCatch(async (req, res) => {
 })
 
 const addUser = tryCatch(async (req, res) => {
-    console.log(req.body);
     const { username, firstname, lastname, password, email, mobile, roles } = req.body;
     const user = await userModel.findOne({ username })
     if (user) {
