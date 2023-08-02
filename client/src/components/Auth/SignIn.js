@@ -44,8 +44,8 @@ function SignIn() {
             // Otherwise, proceed with login
             const res = await login(user).then((res) => {
                 dispatch(setState(res?.data));
-                navigate(`${process.env.PUBLIC_URL}/${res?.data?.roles[0]}`);
-            });
+               if (res?.data) navigate(`${process.env.PUBLIC_URL}/${res?.data?.roles[0]}`);
+            })
         }
     }
 

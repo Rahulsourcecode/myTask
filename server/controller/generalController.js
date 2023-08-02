@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt')
 require('dotenv').config()
 var jwt = require('jsonwebtoken');
 
+
+//common login for all
 const loginController = tryCatch(async (req, res) => {
     const { username, password } = req.body;
     const user = await userModel.findOne({ username: username })

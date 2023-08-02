@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const { roleModel } = require("../model/role.model");
 const saltArgument = 10;
 
-
+//adding new roles
 const addRole = tryCatch(async (req, res) => {
     const { role, description, permissions } = req.body
     const roleexist = await roleModel.findOne({ role: role })
@@ -24,6 +24,7 @@ const addRole = tryCatch(async (req, res) => {
     return res.status(200).json({ message: "Role Added Successfully !" })
 })
 
+//adding new user
 const addUser = tryCatch(async (req, res) => {
     const { username, firstname, lastname, password, email, mobile, roles } = req.body;
     const user = await userModel.findOne({ username })
