@@ -29,7 +29,7 @@ const addUser = tryCatch(async (req, res) => {
     const { username, firstname, lastname, password, email, mobile, roles } = req.body;
     const user = await userModel.findOne({ username })
     if (user) {
-        res.status(400).json({ message: "user already exists" })
+        return res.status(400).json({ message: "user already exists" })
     } else {
         const encryptedPassword = await bcrypt.hash(password, saltArgument)
         const user = new userModel({
@@ -43,9 +43,9 @@ const addUser = tryCatch(async (req, res) => {
         })
         const userSaved = await user.save()
         if (!userSaved) {
-            res.status(400).json({ message: "registration failed" })
+           return res.status(400).json({ message: "registration failed" })
         }
-        res.status(200).json({ message: "User Registered successfully !" })
+       return res.status(200).json({ message: "User Registered successfully !" })
     }
 
 })

@@ -435,17 +435,6 @@
           "children": []
         }
       ]
-    },
-    {
-      "name": "UI Components",
-      "routerLink": [""],
-      "identifier": "uiComponents",
-      "iconClass": "icofont-paint",
-      "breadcrumbMessage": "",
-      "isCategory": false,
-      "isApp": false,
-      "isToggled": true,
-      "children": []
     }
   ]
 }

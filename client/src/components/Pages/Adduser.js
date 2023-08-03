@@ -1,13 +1,10 @@
 import * as React from 'react';
-
 import { useState, useEffect } from 'react'
 import PageHeader from '../common/PageHeader';
 import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { showNotification } from '../../utils/notifications';
 import { addUser, getRoles } from '../../utils/api';
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -208,8 +205,7 @@ const AddUser = () => {
                                 </div>
                             </div>
                         </div>
-                        <button type="button" className="btn btn-secondary mt-5 me-1" onClick={() => { showNotification("added"); }}>Go home</button>
-                        <button type="submit" className="btn btn-primary mt-5" >Add</button>
+                        <button type="submit" className="btn btn-primary mt-5" >Add User</button>
                     </form>
                 </div>
             </div>

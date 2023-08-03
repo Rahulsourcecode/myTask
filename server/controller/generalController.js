@@ -11,11 +11,11 @@ const loginController = tryCatch(async (req, res) => {
     const { username, password } = req.body;
     const user = await userModel.findOne({ username: username })
     if (!user) {
-        res.status(400).json({ message: "user not found" })
+        return res.status(400).json({ message: "user not found" })
     }
     const passwordVerified = await bcrypt.compare(password, user.password)
     if (!passwordVerified) {
-        res.status(400).json({ message: "invalid password" })
+        return res.status(400).json({ message: "invalid password" })
 
     }
     const token = jwt.sign({ id: user.username }, process.env.secretKey, {

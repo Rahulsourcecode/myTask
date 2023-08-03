@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import GoogleImg from "../../assets/images/google.svg";
-import { Axios } from "../../utils/Axios";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setState } from "../../Redux/Slices/authSlices";
 import { login } from "../../utils/api";
@@ -42,7 +40,7 @@ function SignIn() {
             setErrors(validationErrors);
         } else {
             // Otherwise, proceed with login
-            const res = await login(user).then((res) => {
+             await login(user).then((res) => {
                 dispatch(setState(res?.data));
                if (res?.data) navigate(`${process.env.PUBLIC_URL}/${res?.data?.roles[0]}`);
             })
@@ -93,7 +91,7 @@ function SignIn() {
                     <div className="col-12">
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                            <label className="form-check-label" for="flexCheckDefault">
+                            <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Remember me
                             </label>
                         </div>
